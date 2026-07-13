@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: mcworld-converter
+    runtime: node
+    plan: free
+    # A single top-level `npm install` invocation on purpose: chaining a
+    # second top-level `npm` call (e.g. `npm install && npm run build`)
+    # reliably crashes with "npm error Exit handler never called!" on
+    # Render's build image. The build itself runs via the root
+    # package.json's `postinstall` hook, which is spawned by this same
+    # npm process, not by Render's shell.
+    buildCommand: npm install --include=dev
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 20.18.1
+      - key: NPM_CONFIG_PRODUCTION
+        value: "false"
