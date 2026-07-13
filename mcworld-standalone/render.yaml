@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: mcworld-converter
+    runtime: node
+    plan: free
+    buildCommand: npm install --include=dev && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 20.18.1
+      - key: NPM_CONFIG_PRODUCTION
+        value: "false"
